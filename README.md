@@ -150,14 +150,6 @@ LIMIT 5;
 ```
 Objective: Calculate and rank years by the average number of content releases by India.
 
-11. List All Movies that are Documentaries
-    ```sql
-SELECT * 
-FROM netflix
-WHERE listed_in LIKE '%Documentaries';
-```
-Objective: Retrieve all movies classified as documentaries.
-
 12. Find All Content Without a Director
 ```sql
 SELECT * 
