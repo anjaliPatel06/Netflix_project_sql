@@ -81,23 +81,6 @@ WHERE release_year = 2020;
 ```
 Objective: Retrieve all movies released in a specific year.
 
-4. Find the Top 5 Countries with the Most Content on Netflix
-   ```sql
-SELECT * 
-FROM
-(
-    SELECT 
-        UNNEST(STRING_TO_ARRAY(country, ',')) AS country,
-        COUNT(*) AS total_content
-    FROM netflix
-    GROUP BY 1
-) AS t1
-WHERE country IS NOT NULL
-ORDER BY total_content DESC
-LIMIT 5;
-```
-Objective: Identify the top 5 countries with the highest number of content items.
-
 5. Identify the Longest Movie
 ```sql
 SELECT 
@@ -183,16 +166,7 @@ WHERE director IS NULL;
 ```
 Objective: List content that does not have a director.
 
-13. Find How Many Movies Actor 'Salman Khan' Appeared in the Last 10 Years
-    ```sql
-SELECT * 
-FROM netflix
-WHERE casts LIKE '%Salman Khan%'
-  AND release_year > EXTRACT(YEAR FROM CURRENT_DATE) - 10;
-  ```
-Objective: Count the number of movies featuring 'Salman Khan' in the last 10 years.
-
-14. Find the Top 10 Actors Who Have Appeared in the Highest Number of Movies Produced in India
+13. Find the Top 10 Actors Who Have Appeared in the Highest Number of Movies Produced in India
 ```sql
 SELECT 
     UNNEST(STRING_TO_ARRAY(casts, ',')) AS actor,
@@ -204,22 +178,4 @@ ORDER BY COUNT(*) DESC
 LIMIT 10;
 ```
 Objective: Identify the top 10 actors with the most appearances in Indian-produced movies.
-
-15. Categorize Content Based on the Presence of 'Kill' and 'Violence' Keywords
-    ```sql
-SELECT 
-    category,
-    COUNT(*) AS content_count
-FROM (
-    SELECT 
-        CASE 
-            WHEN description ILIKE '%kill%' OR description ILIKE '%violence%' THEN 'Bad'
-            ELSE 'Good'
-        END AS category
-    FROM netflix
-) AS categorized_content
-GROUP BY category;
-```
-Objective: Categorize content as 'Bad' if it contains 'kill' or 'violence' and 'Good' otherwise. Count the number of items in each category.
-
 
